@@ -1,9 +1,13 @@
 <h1>Tasks</h1>
 
-<ul>
-<% @tasks.each do |task| %>
-  <li><%= link_to task.title, task_path(task) %> <%= link_to '🚮', task_path(task), data: { turbo_method: :delete, turbo_confirm: "Delete #{task.title}?" } %></li>
-<% end %>
-</ul>
 
+<% @tasks.each do |task| %>
+  <ul>
+  <% if task.completed == true %>
+    <i class="fa-solid fa-square-check"></i><%= link_to task.title, task_path(task) %> <%= link_to '🚮', task_path(task), data: { turbo_method: :delete, turbo_confirm: "Delete #{task.title}?" } %>
+  <% else %>
+    <i class="fa-solid fa-square"></i><%= link_to task.title, task_path(task) %> <%= link_to '🚮', task_path(task), data: { turbo_method: :delete, turbo_confirm: "Delete #{task.title}?" } %>
+  <% end %>
+  </ul>
+<% end %>
 <%= link_to "Create a new task", new_task_path %>
